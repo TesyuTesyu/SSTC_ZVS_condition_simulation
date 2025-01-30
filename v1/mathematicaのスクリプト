@@ -1,0 +1,29 @@
+Clear["Global`*"]
+V2=V1-IR1*R1
+V3=V2*(1+L2/L1)-L2*(s*IR1-il10-il20)
+IR1=-C12*(s*V1-v10)
+
+Simplify[V2/(s*L1)+il10/s+V3*(s*C1+1/R2)-C1*v30]
+->
+(1/(L1 R2 s))(il10 L1 R2+R2 (V1+C12 R1 s V1-C12 R1 v10)+s (1+C1 R2 s) (L1 L2 (il10+il20+C12 s (s V1-v10))+(L1+L2) (V1+C12 R1 s V1-C12 R1 v10))-C1 L1 R2 s v30)
+
+Solve[-C12*(s*V1-v10)==(1/(L1 R2 s))(il10 L1 R2+R2 (V1+C12 R1 s V1-C12 R1 v10)+s (1+C1 R2 s) (L1 L2 (il10+il20+C12 s (s V1-v10))+(L1+L2) (V1+C12 R1 s V1-C12 R1 v10))-C1 L1 R2 s v30), V1]
+
+->
+{{V1->(-il10 L1 R2-il10 L1 L2 s-il20 L1 L2 s-C1 il10 L1 L2 R2 s^2-C1 il20 L1 L2 R2 s^2+C12 R1 R2 v10+C12 L1 R1 s v10+C12 L2 R1 s v10+C12 L1 R2 s v10+C12 L1 L2 s^2 v10+C1 C12 L1 R1 R2 s^2 v10+C1 C12 L2 R1 R2 s^2 v10+C1 C12 L1 L2 R2 s^3 v10+C1 L1 R2 s v30)/(R2+L1 s+L2 s+C12 R1 R2 s+C12 L1 R1 s^2+C12 L2 R1 s^2+C1 L1 R2 s^2+C12 L1 R2 s^2+C1 L2 R2 s^2+C12 L1 L2 s^3+C1 C12 L1 R1 R2 s^3+C1 C12 L2 R1 R2 s^3+C1 C12 L1 L2 R2 s^4)}}
+
+Simplify->
+(-il20 L1 L2 s (1+C1 R2 s)-il10 L1 (R2+L2 s+C1 L2 R2 s^2)+C12 R1 R2 v10+C12 L1 R1 s v10+C12 L2 R1 s v10+C12 L1 R2 s v10+C12 L1 L2 s^2 v10+C1 C12 L1 R1 R2 s^2 v10+C1 C12 L2 R1 R2 s^2 v10+C1 C12 L1 L2 R2 s^3 v10+C1 L1 R2 s v30)/(s (L1+L2+C12 L2 R1 s+C12 L1 s (R1+L2 s))+R2 (1+C1 (L1+L2) s^2+C12 s (R1+C1 (L1+L2) R1 s^2+L1 s (1+C1 L2 s^2))))
+
+Collect[分子,s]->
+-il10 L1 R2+C12 R1 R2 v10+C1 C12 L1 L2 R2 s^3 v10+s^2 (-C1 il10 L1 L2 R2-C1 il20 L1 L2 R2+C12 L1 L2 v10+C1 C12 L1 R1 R2 v10+C1 C12 L2 R1 R2 v10)+s (-il10 L1 L2-il20 L1 L2+C12 L1 R1 v10+C12 L2 R1 v10+C12 L1 R2 v10+C1 L1 R2 v30)
+
+Collect[分母,s]->
+R2+(L1+L2+C12 R1 R2) s+(C12 L1 R1+C12 L2 R1+C12 L1 R2+C1 (L1+L2) R2) s^2+(C12 L1 L2+C1 C12 (L1+L2) R1 R2) s^3+C1 C12 L1 L2 R2 s^4
+
+
+
+
+InverseLaplaceTransform[(-il20 L1 L2 s (1+C1 R2 s)-il10 L1 (R2+L2 s+C1 L2 R2 s^2)+C12 R1 R2 v10+C12 L1 R1 s v10+C12 L2 R1 s v10+C12 L1 R2 s v10+C12 L1 L2 s^2 v10+C1 C12 L1 R1 R2 s^2 v10+C1 C12 L2 R1 R2 s^2 v10+C1 C12 L1 L2 R2 s^3 v10+C1 L1 R2 s v30)/(s (L1+L2+C12 L2 R1 s+C12 L1 s (R1+L2 s))+R2 (1+C1 (L1+L2) s^2+C12 s (R1+C1 (L1+L2) R1 s^2+L1 s (1+C1 L2 s^2)))),s,t]
+
+0.6MBのでかい解が得られる。マクローリン展開しても1MB越えのでかい解
